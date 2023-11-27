@@ -43,13 +43,13 @@
 
 It includes such features as:
 
-* Make Customers Life Easy
-* Seamless Integration
-* Satisfy Your Customers
-* Flatter Your Customers
-* Enhance Your Service
-* Save Time And Energy
-* Zero Payment To Get Started With The DRDSH Trial.
+1. `Make Customers Life Easy`
+2. `Seamless Integration`
+3. `Satisfy Your Customers`
+4. `Flatter Your Customers`
+5. `Enhance Your Service`
+6. `Save Time And Energy`
+7. `Zero Payment To Get Started With The DRDSH Trial.`
 
 ## Requirements
 
@@ -60,28 +60,30 @@ It includes such requirements as:
 
 ## Installation
 
-### Installation with Swift Package Manager
+#### Installation with Swift Package Manager
 
-Installation with Swift Package Manager
-
-Swift Package Manager(SPM) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well.
+[Swift Package Manager(SPM)](https://swift.org/package-manager/) is Apple's dependency manager tool. It is now supported in Xcode 11. So it can be used in all appleOS types of projects. It can be used alongside other tools like CocoaPods and Carthage as well. 
 
 To install DrdshChatSDK package via Xcode
 
-Go to File -> Swift Packages -> Add Package Dependency...
-Then search for https://github.com/cto-htfsa/drdsh-sdk-ios.git
-And choose the version you want
-To install DrdshChatSDK package into your packages, add a reference to DrdshChatSDK and a targeting release version in the dependencies section in Package.swift file:
+ * Go to File -> Swift Packages -> Add Package Dependency...
+ * Then search for https://github.com/cto-htfsa/DrdshChatSDK.git
+ * And choose the version you want
 
+To install DrdshChatSDK package into your packages, add a reference to DrdshChatSDK and a targeting release version in the dependencies section in `Package.swift` file:
+
+```swift
 import PackageDescription
 
 let package = Package(
     name: "YOUR_PROJECT_NAME",
     products: [],
     dependencies: [
-        .package(url: "https://github.com/cto-htfsa/drdsh-sdk-ios.git", from: "1.0.0")
+        .package(url: "https://github.com/cto-htfsa/DrdshChatSDK.git", from: "1.0.0")
     ]
 )
+```
+
 ## Usage
 
 #### Step 1
@@ -166,7 +168,7 @@ let package = Package(
 ```
 
 #### Done
-Thats it, you successfully integrate DrdshChatSDK
+Thats it, you successfully integrate `DrdshChatSDK`
 
 
 
@@ -177,7 +179,7 @@ HTF, cto@htf.sa
 
 ### Issues
 
-If you find an issue, please [create an issue](https://github.com/cto-htfsa/drdsh-sdk-ios/issue).
+If you find an issue, please [create an issue](https://github.com/cto-htfsa/DrdshChatSDK/issue).
 
 
 
