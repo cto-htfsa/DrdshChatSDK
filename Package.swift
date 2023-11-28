@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "DrdshChatSDK",
-    defaultLocalization: "ar",
+    defaultLocalization: "en",
         platforms: [
             .iOS(.v13)
         ],
