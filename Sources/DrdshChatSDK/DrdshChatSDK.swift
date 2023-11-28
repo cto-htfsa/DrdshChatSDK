@@ -18,20 +18,21 @@ public class DrdshChatSDK : NSObject {
     var AllDetails:ValidateIdentity = ValidateIdentity()
     var AgentDetail:AgentModel = AgentModel()
     var config = DrdshChatSDKConfiguration()
+    var bundle = Bundle.module
     func DrdshChatSDKBundlePath() -> String {
 //        return Bundle(for: DrdshChatSDK.self).path(forResource: "DrdshChatSDK", ofType: "bundle")!
-        return Bundle.main.bundlePath
+        return Bundle.module.bundlePath
     }
     func DrdshChatSDKForcedBundlePath() -> String {
         let path = DrdshChatSDKBundlePath()
         let name = DrdshChatSDK.shared.config.local
-        return Bundle(path: path)!.path(forResource: name, ofType: "lproj")!
+        return bundle.path(forResource: name, ofType: "lproj")!
     }
     func localizedString(stringKey: String) -> String {
         var path: String
         let table = "Localizable"
         path = DrdshChatSDKForcedBundlePath()
-        return Bundle(path: path)!.localizedString(forKey: stringKey, value: stringKey, table: table)
+        return bundle.localizedString(forKey: stringKey, value: stringKey, table: table)
     }
     
     @objc public class func presentChat(config: DrdshChatSDKConfiguration,animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
@@ -60,7 +61,7 @@ public class DrdshChatSDK : NSObject {
 //          })
 //        }
         else{
-            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: Bundle(for: DrdshChatSDK.self)).instantiateViewController(withIdentifier: "MainLoadViewController") as! MainLoadViewController
+            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: DrdshChatSDK.shared.bundle).instantiateViewController(withIdentifier: "MainLoadViewController") as! MainLoadViewController
             vc.modalPresentationStyle = .overFullScreen
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .overFullScreen
@@ -256,7 +257,7 @@ public class DrdshChatSDKConfiguration : GGObject {
     public var watingMsg:String = "watingMsg"
     
     public override init() {
-        var bundle = Bundle(for: DrdshChatSDK.self)
+        var bundle = DrdshChatSDK.shared.bundle
         if let resourcePath = bundle.path(forResource: "DrdshChatSDK", ofType: "bundle") {
             if let resourcesBundle = Bundle(path: resourcePath) {
                 bundle = resourcesBundle

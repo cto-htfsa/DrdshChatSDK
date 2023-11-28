@@ -29,6 +29,10 @@ let package = Package(
                            .product(name: "SocketIO", package: "socket.io-client-swift"),
                            .product(name: "MBProgressHUD", package: "MBProgressHUD"),
                            .product(name: "SwiftyJSON", package: "SwiftyJSON"),
-                          ],path: "Sources"),
+                          ],
+            path: "Sources",
+            resources: [
+                .process("Resources")
+            ])
     ]
 )

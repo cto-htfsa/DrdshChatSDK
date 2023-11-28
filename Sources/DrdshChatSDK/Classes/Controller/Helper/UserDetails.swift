@@ -36,7 +36,7 @@ class GGApplication: NSObject {
     
     /// EZSE: Returns app's version number
     public static var appVersion: String {
-        return Bundle.main.object(forInfoDictionaryKey: kCFBundleInfoDictionaryVersionKey as String) as? String ?? ""
+        return Bundle.module.object(forInfoDictionaryKey: kCFBundleInfoDictionaryVersionKey as String) as? String ?? ""
     }
     
     /// EZSE: Return app's build number
