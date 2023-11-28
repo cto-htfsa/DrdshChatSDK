@@ -252,6 +252,9 @@ public class DrdshChatSDKConfiguration : GGObject {
     public override init() {
         let bundle = Bundle.module
         backImage = UIImage(named: "back", in: bundle, compatibleWith: nil)!
+        if local == "ar"{
+            backImage = backImage.rotate(radians: .pi)
+        }
         likeImage = UIImage(named: "like", in: bundle, compatibleWith: nil)!
         disLikeImage = UIImage(named: "dislike", in: bundle, compatibleWith: nil)!
         likeSelctedImage = UIImage(named: "selectedlike", in: bundle, compatibleWith: nil)!
