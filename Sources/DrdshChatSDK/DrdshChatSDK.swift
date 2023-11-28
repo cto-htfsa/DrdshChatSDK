@@ -164,7 +164,7 @@ public class DrdshChatSDKConfiguration : GGObject {
     public var local:String = "en"
     var secondryColor:UIColor = UIColor.secondarySystemGroupedBackground
     public var bgColor:String  = ""
-    public var topBarTxtColor:String  = "#FFFFFF"
+    public var topBarTxtColor:String  = "#000000"
     public var topBarBgColor:String  = "#FFFFFF"
     public var myChatBubbleColor:String  = "#EEEEEE"
     public var myChatTextColor:String  = "#000000"
