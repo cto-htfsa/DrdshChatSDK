@@ -8,31 +8,31 @@
 
 <!--## Screenshots-->
 <!--<p align="center">-->
-<!--<a href="https://www.drdsh.live/sdk/Offline.png">-->
-<!--<img src="https://www.drdsh.live/sdk/Offline.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/Offline-Empty.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/Offline-Empty.png" height="480">-->
 <!--</a>-->
 <!---->
-<!--<a href="https://www.drdsh.live/sdk/waiting.png">-->
-<!--<img src="https://www.drdsh.live/sdk/waiting.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/Offline.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/Offline.png" height="480">-->
 <!--</a>-->
 <!---->
-<!--<a href="https://www.drdsh.live/sdk/message.png">-->
-<!--<img src="https://www.drdsh.live/sdk/message.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/message.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/message.png" height="480">-->
 <!--</a>-->
 <!--</p>-->
 <!---->
 <!---->
 <!--<p align="center">-->
-<!--<a href="https://www.drdsh.live/sdk/attachment-message.png">-->
-<!--<img src="https://www.drdsh.live/sdk/attachment-message.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/attachment-message.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/attachment-message.png" height="480">-->
 <!--</a>-->
 <!---->
-<!--<a href="https://www.drdsh.live/sdk/close-chat.png">-->
-<!--<img src="https://www.drdsh.live/sdk/close-chat.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/close-chat.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/close-chat.png" height="480">-->
 <!--</a>-->
 <!---->
-<!--<a href="https://www.drdsh.live/sdk/offline.png">-->
-<!--<img src="https://www.drdsh.live/sdk/offline.png" height="480">-->
+<!--<a href="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/waiting.png">-->
+<!--<img src="https://github.com/cto-htfsa/DrdshChatSDK/blob/1.0.4/Screens/waiting.png" height="480">-->
 <!--</a>-->
 <!--</p>-->
 <!---->
