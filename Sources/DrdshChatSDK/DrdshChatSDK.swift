@@ -54,9 +54,9 @@ public class DrdshChatSDK : NSObject {
 //          })
 //        }
         else{
-            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: Bundle.module).instantiateViewController(withIdentifier: "MainLoadViewController") as! MainLoadViewController
-            vc.modalPresentationStyle = .overFullScreen
-            let nav = UINavigationController(rootViewController: vc)
+            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: Bundle.module).instantiateInitialViewController()
+            vc!.modalPresentationStyle = .overFullScreen
+            let nav = UINavigationController(rootViewController: vc!)
             nav.modalPresentationStyle = .overFullScreen
             if #available(iOS 13.0, *) {
                 let appearance = UINavigationBarAppearance()
