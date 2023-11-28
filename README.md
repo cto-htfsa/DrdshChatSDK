@@ -117,7 +117,7 @@ let package = Package(
 ```swift
      DrdshChatSDK.presentChat(config: sdkCongig)
 ```
-#### Step 4
+#### Final code
 
 * Below is the fully code of open SDK with dummy appSid 
 
@@ -125,6 +125,7 @@ let package = Package(
 
     @IBAction func btnStartChatAction(_ sender:UIButton){
         let sdkCongig = DrdshChatSDKConfiguration()
+        sdkCongig.local = "en"
         sdkCongig.appSid = "put your appSid here"
         DrdshChatSDK.presentChat(config: sdkCongig)
     }
