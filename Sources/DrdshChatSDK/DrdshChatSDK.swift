@@ -18,21 +18,14 @@ public class DrdshChatSDK : NSObject {
     var AllDetails:ValidateIdentity = ValidateIdentity()
     var AgentDetail:AgentModel = AgentModel()
     var config = DrdshChatSDKConfiguration()
-    var bundle = Bundle.module
-    func DrdshChatSDKBundlePath() -> String {
-//        return Bundle(for: DrdshChatSDK.self).path(forResource: "DrdshChatSDK", ofType: "bundle")!
-        return Bundle.module.bundlePath
-    }
+
     func DrdshChatSDKForcedBundlePath() -> String {
-        let path = DrdshChatSDKBundlePath()
         let name = DrdshChatSDK.shared.config.local
-        return bundle.path(forResource: name, ofType: "lproj")!
+        return Bundle.module.path(forResource: name, ofType: "lproj")!
     }
     func localizedString(stringKey: String) -> String {
-        var path: String
         let table = "Localizable"
-        path = DrdshChatSDKForcedBundlePath()
-        return bundle.localizedString(forKey: stringKey, value: stringKey, table: table)
+        return Bundle.module.localizedString(forKey: stringKey, value: stringKey, table: table)
     }
     
     @objc public class func presentChat(config: DrdshChatSDKConfiguration,animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
@@ -61,7 +54,7 @@ public class DrdshChatSDK : NSObject {
 //          })
 //        }
         else{
-            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: DrdshChatSDK.shared.bundle).instantiateViewController(withIdentifier: "MainLoadViewController") as! MainLoadViewController
+            let vc = UIStoryboard(name: "DrdshChatSDK", bundle: Bundle.module).instantiateViewController(withIdentifier: "MainLoadViewController") as! MainLoadViewController
             vc.modalPresentationStyle = .overFullScreen
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .overFullScreen
@@ -169,7 +162,7 @@ public class DrdshChatSDKConfiguration : GGObject {
     public var FCM_Token:String = ""
     public var FCM_Auth_Key:String = ""
     public var local:String = "en"
-    var secondryColor:UIColor = UIColor.groupTableViewBackground
+    var secondryColor:UIColor = UIColor.secondarySystemGroupedBackground
     public var bgColor:String  = ""
     public var titleTextColor:String  = "#FFFFFF"
     public var topBarBgColor:String  = "#FFFFFF"
@@ -257,12 +250,7 @@ public class DrdshChatSDKConfiguration : GGObject {
     public var watingMsg:String = "watingMsg"
     
     public override init() {
-        var bundle = DrdshChatSDK.shared.bundle
-        if let resourcePath = bundle.path(forResource: "DrdshChatSDK", ofType: "bundle") {
-            if let resourcesBundle = Bundle(path: resourcePath) {
-                bundle = resourcesBundle
-            }
-        }
+        let bundle = Bundle.module
         backImage = UIImage(named: "back", in: bundle, compatibleWith: nil)!
         likeImage = UIImage(named: "like", in: bundle, compatibleWith: nil)!
         disLikeImage = UIImage(named: "dislike", in: bundle, compatibleWith: nil)!
@@ -318,21 +306,21 @@ public extension UIColor {
         )
     }
     convenience init(hexString: String, alpha: CGFloat = 1.0) {
-        let hexString: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        let scanner = Scanner(string: hexString)
-        if (hexString.hasPrefix("#")) {
-            scanner.scanLocation = 1
+        var hexFormatted: String = hexString.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()
+
+        if hexFormatted.hasPrefix("#") {
+            hexFormatted = String(hexFormatted.dropFirst())
         }
-        var color: UInt32 = 0
-        scanner.scanHexInt32(&color)
-        let mask = 0x000000FF
-        let r = Int(color >> 16) & mask
-        let g = Int(color >> 8) & mask
-        let b = Int(color) & mask
-        let red   = CGFloat(r) / 255.0
-        let green = CGFloat(g) / 255.0
-        let blue  = CGFloat(b) / 255.0
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
+
+        assert(hexFormatted.count == 6, "Invalid hex code used.")
+
+        var rgbValue: UInt64 = 0
+        Scanner(string: hexFormatted).scanHexInt64(&rgbValue)
+
+        self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+                  green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+                  blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+                  alpha: alpha)
     }
 
 }

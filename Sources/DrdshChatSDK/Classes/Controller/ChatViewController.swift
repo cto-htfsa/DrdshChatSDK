@@ -151,7 +151,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                "file_type":"",
                "file_size":"",
                "send_by": 2,
-               "dc_name":DrdshChatSDK.shared.AllDetails.name]]){ data in
+               "dc_name":DrdshChatSDK.shared.AllDetails.name] as [String : Any]]){ data in
                 var m:MessageModel = MessageModel()
                 m <= data
                                        self.list.insert(m, at: 0)
@@ -315,7 +315,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         timer.invalidate()
         CommonSocket.shared.CommanEmitSokect(command: .invitationMaxWaitTimeExceeded,data: [[
             "vid":DrdshChatSDK.shared.AllDetails.visitorID,
-            "form":DrdshChatSDK.shared.AllDetails.embeddedChat.displayForm]]) { (data) in
+            "form":DrdshChatSDK.shared.AllDetails.embeddedChat.displayForm] as [String : Any]]) { (data) in
             debugPrint(data)
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineViewController") as! OfflineViewController
             self.navigationController?.pushViewController(vc, animated: false)
@@ -466,7 +466,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
               "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
               "ts":2,
               "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
-              "stop":true]]){data in}
+            "stop":true] as [String : Any]]){data in}
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         CommonSocket.shared.CommanEmitSokect(command: .visitorTyping,data: [[
@@ -475,7 +475,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
               "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
               "ts":1,
               "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
-              "stop":false]]){data in}
+            "stop":false] as [String : Any]]){data in}
         return true
     }
 }
@@ -523,7 +523,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                             "file_type":url.pathExtension,
                             "file_size":url.fileSize,
                             "dc_name":DrdshChatSDK.shared.AllDetails.name,
-                            "localId":url.lastPathComponent]]){ data in
+                           "localId":url.lastPathComponent] as [String : Any]]){ data in
                             var mm:MessageModel = MessageModel()
                             mm <= data
                             if let indexaPath = self.list.firstIndex(where: { (model) -> Bool in
