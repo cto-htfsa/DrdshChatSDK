@@ -125,7 +125,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                     }
                 }
             }
-            debugPrint(data)
+                self.debugPrint1(data)
         }
         CommonSocket.shared.agentDetail = { t in
             self.setAgentDetail()
@@ -201,7 +201,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             self.navigationController?.pushViewController(vc, animated: false)
         }
         CommonSocket.shared.totalOnlineAgents { data in
-            debugPrint(data)
+            self.debugPrint1(data)
         }
         CommonSocket.shared.agentAcceptedChatRequest { data in
             DrdshChatSDK.shared.AllDetails.visitorConnectedStatus = 2
@@ -316,7 +316,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         CommonSocket.shared.CommanEmitSokect(command: .invitationMaxWaitTimeExceeded,data: [[
             "vid":DrdshChatSDK.shared.AllDetails.visitorID,
             "form":DrdshChatSDK.shared.AllDetails.embeddedChat.displayForm] as [String : Any]]) { (data) in
-            debugPrint(data)
+            self.debugPrint1(data)
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineViewController") as! OfflineViewController
             self.navigationController?.pushViewController(vc, animated: false)
         }

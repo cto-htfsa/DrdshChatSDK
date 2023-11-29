@@ -332,3 +332,8 @@ extension String{
         return DrdshChatSDK.shared.localizedString(stringKey:self)
     }
 }
+extension UIViewController{
+    func debugPrint1(_ items: Any..., separator: String = " ", terminator: String = "\n"){
+        debugPrint(items,separator,terminator)
+    }
+}

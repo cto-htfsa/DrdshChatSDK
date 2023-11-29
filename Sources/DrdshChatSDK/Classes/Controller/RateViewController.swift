@@ -67,7 +67,7 @@ class RateViewController: UIViewController {
                         "mid":DrdshChatSDK.shared.AllDetails.messageID,
                         "vid":DrdshChatSDK.shared.AllDetails.visitorID,
                         "email":self.txtComment.text!]]) { (data) in
-                        debugPrint(data)
+                            self.debugPrint1(data)
                         self.dismiss(animated: false, completion: {
                             self.successHandler?()
                         })
@@ -88,7 +88,7 @@ class RateViewController: UIViewController {
                     "name":DrdshChatSDK.shared.AllDetails.name,
                     "comment":self.txtComment.text!,
                     "feedback":feedback]]) { (data) in
-                    debugPrint(data)
+                        self.debugPrint1(data)
                     self.dismiss(animated: false, completion: {
                         self.successHandler?()
                     })

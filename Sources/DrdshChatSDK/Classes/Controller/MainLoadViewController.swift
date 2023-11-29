@@ -173,7 +173,7 @@ class MainLoadViewController: UIViewController {
                 }
                 if httpResponse.statusCode == 200{
                     if let d = receivedTodo["data"] as? [String:AnyObject]{
-                        print("Response : " + receivedTodo.description)
+                        self.debugPrint1("Response : " + receivedTodo.description)
                         DrdshChatSDK.shared.AllDetails <= d
                         var newTodo: [String: Any] =  DrdshChatSDK.shared.AllDetails.toDict
                         DrdshChatSDK.shared.config.mapServerData(to: DrdshChatSDK.shared.AllDetails.embeddedChat.toDict)
@@ -203,7 +203,7 @@ class MainLoadViewController: UIViewController {
                                     DrdshChatSDK.shared.AgentDetail.agent_name = data["agent_name"] as? String ?? ""
                                     DrdshChatSDK.shared.AgentDetail.visitor_message_id = data["visitor_message_id"] as! String
                                 }
-                                debugPrint(data)
+                                self.debugPrint1(data)
                             }
                         }
                     }
@@ -287,7 +287,7 @@ class MainLoadViewController: UIViewController {
             "message": self.txtTypeYourQuestion.text!
         ]
         CommonSocket.shared.CommanEmitSokect(command: .inviteChat,data: [newTodo]) { receivedTodo in
-            print("Response : " + receivedTodo.description)
+            self.debugPrint1("Response : " + receivedTodo.description)
             DrdshChatSDK.shared.AllDetails.agentOnline = receivedTodo["agentOnline"] as? Int ?? 0
             DrdshChatSDK.shared.AllDetails.visitorConnectedStatus = 2
             DrdshChatSDK.shared.AllDetails.messageID = receivedTodo["visitor_message_id"] as? String ?? ""
