@@ -78,7 +78,7 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     products: [],
     dependencies: [
-        .package(url: "https://github.com/cto-htfsa/DrdshChatSDK.git", from: "2.0.9")
+        .package(url: "https://github.com/cto-htfsa/DrdshChatSDK.git", from: "3.0.0")
     ]
 )
 ```
