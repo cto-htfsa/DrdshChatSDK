@@ -28,6 +28,14 @@ public class DrdshChatSDK : NSObject {
         return Bundle.module.localizedString(forKey: stringKey, value: stringKey, table: table)
     }
     
+    func getWindows()->UIWindow{
+        if let to = UIApplication.shared.windows.filter({$0.isKeyWindow}).first{
+            return to
+        }else if let to = UIApplication.shared.windows.last(where: { $0.isKeyWindow }){
+            return to
+        }
+        return UIApplication.shared.keyWindow!
+    }
     @objc public class func presentChat(config: DrdshChatSDKConfiguration,animated: Bool = true, completion: ((Bool) -> Void)? = nil) {
         if let data = UserDefaults.standard.object(forKey: "AllDetails") as? [String :AnyObject]{
             DrdshChatSDK.shared.AllDetails <= data
@@ -92,7 +100,7 @@ public class DrdshChatSDK : NSObject {
             }
         })
     }
-    func topViewController(_ base: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    func topViewController(_ base: UIViewController? = DrdshChatSDK.shared.getWindows().rootViewController) -> UIViewController? {
         if let nav = base as? UINavigationController {
             return topViewController(nav.visibleViewController)
         }

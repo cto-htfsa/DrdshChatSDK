@@ -12,7 +12,7 @@ import AVFoundation
 
 let imageCache = NSCache<NSString, UIImage>()
 class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
-
+    
     @IBOutlet weak var btnSend: GGButton!
     @IBOutlet weak var btnLike: GGButton!
     @IBOutlet weak var btnDisLike: GGButton!
@@ -48,7 +48,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.btnLike.isHidden = !DrdshChatSDK.shared.AllDetails.embeddedChat.showFeedbackButton
         self.btnDisLike.isHidden = !DrdshChatSDK.shared.AllDetails.embeddedChat.showFeedbackButton
         self.imgView.isHidden = !DrdshChatSDK.shared.AllDetails.embeddedChat.showAgentPhoto
-       
+        
         self.agentView.backgroundColor = DrdshChatSDK.shared.config.secondryColor
         self.txtMessage.placeholder = DrdshChatSDK.shared.config.typeHere.Local()
         btnWebSite.setTitle(DrdshChatSDK.shared.localizedString(stringKey: "Powered by Drdsh"), for: .normal)
@@ -60,18 +60,18 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         CommonSocket.shared.CommanEmitSokect(command: .joinVisitorsRoom,data: [[
             "dc_vid":DrdshChatSDK.shared.AllDetails.visitorID]]){ data in
-            self.userdata = data
-            DrdshChatSDK.shared.AgentDetail <= data
-            DrdshChatSDK.shared.AllDetails.agentId = data["agent_id"] as? String ?? ""
-            DrdshChatSDK.shared.AgentDetail.agent_name = data["agent_name"] as? String ?? ""
-            DrdshChatSDK.shared.AgentDetail.visitor_message_id = data["visitor_message_id"] as! String
-            self.setAgentDetail()
-            if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus == 1{
-                CommonSocket.shared.CommanEmitSokect(command: .visitorJoinAgentRoom,data:[self.userdata]){ data in
-                    
+                self.userdata = data
+                DrdshChatSDK.shared.AgentDetail <= data
+                DrdshChatSDK.shared.AllDetails.agentId = data["agent_id"] as? String ?? ""
+                DrdshChatSDK.shared.AgentDetail.agent_name = data["agent_name"] as? String ?? ""
+                DrdshChatSDK.shared.AgentDetail.visitor_message_id = data["visitor_message_id"] as! String
+                self.setAgentDetail()
+                if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus == 1{
+                    CommonSocket.shared.CommanEmitSokect(command: .visitorJoinAgentRoom,data:[self.userdata]){ data in
+                        
+                    }
                 }
             }
-        }
         if DrdshChatSDK.shared.config.local == "ar"{
             self.lblName.textAlignment = .right
             self.lblTyping.textAlignment = .right
@@ -103,7 +103,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         self.navigationItem.rightBarButtonItem = nil
         
         if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus != 2{
-             self.navigationItem.rightBarButtonItem = nil
+            self.navigationItem.rightBarButtonItem = nil
         }else if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus == 2{
             if DrdshChatSDK.shared.AgentDetail.agent_id == ""{
                 self.title = DrdshChatSDK.shared.config.watingMsg.Local()
@@ -114,19 +114,19 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         CommonSocket.shared.visitorLoadChatHistory(data: [[
             "appSid" : DrdshChatSDK.shared.config.appSid,
             "mid":DrdshChatSDK.shared.AllDetails.messageID]]) { (data) in
-            if data.count > 0{
-                if let arrDic = data[0] as? [[String:AnyObject]]{
-                    self.list <= arrDic
-                    self.list = self.list.reversed()
-                    self.table.reloadData()
-                    self.table.scroll(to: .top, animated: false)
-                    CommonSocket.shared.CommanEmitSokect(command: .isRead,data: [[
-                        "_id":DrdshChatSDK.shared.AllDetails.visitorID]]) { (data) in
+                if data.count > 0{
+                    if let arrDic = data[0] as? [[String:AnyObject]]{
+                        self.list <= arrDic
+                        self.list = self.list.reversed()
+                        self.table.reloadData()
+                        self.table.scroll(to: .top, animated: false)
+                        CommonSocket.shared.CommanEmitSokect(command: .isRead,data: [[
+                            "_id":DrdshChatSDK.shared.AllDetails.visitorID]]) { (data) in
+                            }
                     }
                 }
-            }
                 self.debugPrint1(data)
-        }
+            }
         CommonSocket.shared.agentDetail = { t in
             self.setAgentDetail()
             self.table.reloadData()
@@ -141,24 +141,24 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let text = self.txtMessage.text!
             self.txtMessage.text! = ""
             CommonSocket.shared.CommanEmitSokect(command: .sendVisitorMessage,data: [[
-               "dc_id":DrdshChatSDK.shared.AllDetails.companyId,
-               "dc_mid":DrdshChatSDK.shared.AllDetails.messageID,
-               "dc_vid":DrdshChatSDK.shared.AllDetails.visitorID,
-               "dc_agent_id":DrdshChatSDK.shared.AllDetails.agentId,
-               "message":text,
-               "is_attachment":0,
-               "attachment_file":"",
-               "file_type":"",
-               "file_size":"",
-               "send_by": 2,
-               "dc_name":DrdshChatSDK.shared.AllDetails.name] as [String : Any]]){ data in
-                var m:MessageModel = MessageModel()
-                m <= data
-                                       self.list.insert(m, at: 0)
-                                       self.table.reloadData()
-                                       self.table.scroll(to: .top, animated: true)
-                                    
-            }
+                "dc_id":DrdshChatSDK.shared.AllDetails.companyId,
+                "dc_mid":DrdshChatSDK.shared.AllDetails.messageID,
+                "dc_vid":DrdshChatSDK.shared.AllDetails.visitorID,
+                "dc_agent_id":DrdshChatSDK.shared.AllDetails.agentId,
+                "message":text,
+                "is_attachment":0,
+                "attachment_file":"",
+                "file_type":"",
+                "file_size":"",
+                "send_by": 2,
+                "dc_name":DrdshChatSDK.shared.AllDetails.name] as [String : Any]]){ data in
+                    var m:MessageModel = MessageModel()
+                    m <= data
+                    self.list.insert(m, at: 0)
+                    self.table.reloadData()
+                    self.table.scroll(to: .top, animated: true)
+                    
+                }
         }
         btnLike.action = {
             CommonSocket.shared.CommanEmitSokect(command: .updateVisitorRating,data: [[
@@ -178,17 +178,17 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
         btnMail.action = {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "RateViewController") as! RateViewController
-           vc.modalPresentationStyle = .overFullScreen
-           vc.type = 2
-           vc.successHandler = {
-               
-           }
-           self.present(vc, animated: true) {
-               
-           }
+            vc.modalPresentationStyle = .overFullScreen
+            vc.type = 2
+            vc.successHandler = {
+                
+            }
+            self.present(vc, animated: true) {
+                
+            }
         }
         btnAttachment.action = {
-           AGImagePickerController(with: self, allowsEditing: true, media: .both, iPadSetup: self.btnAttachment)
+            AGImagePickerController(with: self, allowsEditing: true, media: .both, iPadSetup: self.btnAttachment)
         }
         CommonSocket.shared.ipBlocked { data in
             if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus == 2{
@@ -245,7 +245,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if (data["stop"] as! Bool){
                 self.typingView.isHidden = true
             }else{
-                 self.lblTyping.text = data["message"] as? String ?? ""
+                self.lblTyping.text = data["message"] as? String ?? ""
                 self.typingView.isHidden = false
             }
             self.lblTyping.text = data["message"] as? String ?? ""
@@ -302,7 +302,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             let strProdile = DrdshChatSDK.shared.AgentDetail.agent_image
             imgView.setImage(urlString: strProdile)
             if DrdshChatSDK.shared.AllDetails.embeddedChat.showAgentPanel{
-                 self.agentView.isHidden = false
+                self.agentView.isHidden = false
             }
             self.lblName.text = DrdshChatSDK.shared.AgentDetail.agent_name
         }
@@ -316,10 +316,10 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         CommonSocket.shared.CommanEmitSokect(command: .invitationMaxWaitTimeExceeded,data: [[
             "vid":DrdshChatSDK.shared.AllDetails.visitorID,
             "form":DrdshChatSDK.shared.AllDetails.embeddedChat.displayForm] as [String : Any]]) { (data) in
-            self.debugPrint1(data)
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineViewController") as! OfflineViewController
-            self.navigationController?.pushViewController(vc, animated: false)
-        }
+                self.debugPrint1(data)
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineViewController") as! OfflineViewController
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
     }
     @objc func backAction(){
         if DrdshChatSDK.shared.AllDetails.visitorConnectedStatus == 2{
@@ -328,7 +328,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }else{
             self.timer.invalidate()
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "OfflineViewController") as! OfflineViewController
-             self.navigationController?.pushViewController(vc, animated: false)
+            self.navigationController?.pushViewController(vc, animated: false)
         }
     }
     @objc func dissmissView(){
@@ -350,10 +350,10 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                 "id":DrdshChatSDK.shared.AllDetails.companyId,
                 "vid":DrdshChatSDK.shared.AllDetails.visitorID,
                 "name":DrdshChatSDK.shared.AllDetails.name]]) { (data) in
-                self.agentView.isHidden = true
-                self.messageView.isHidden = true
-                self.navigationItem.rightBarButtonItem = nil
-            }
+                    self.agentView.isHidden = true
+                    self.messageView.isHidden = true
+                    self.navigationItem.rightBarButtonItem = nil
+                }
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -411,7 +411,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if self.list[indexPath.row].message.isSingleEmoji{
                 cell.lblMessage.font = UIFont.boldSystemFont(ofSize: 40)
             }else{
-                 cell.lblMessage.font = UIFont.systemFont(ofSize: 13)
+                cell.lblMessage.font = UIFont.systemFont(ofSize: 13)
             }
             return cell
         }else{
@@ -429,7 +429,7 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             cell.imgProfile.setImage(urlString: strProdile)
             cell.lblName.text = self.list[indexPath.row].agent_name
             cell.lblMessage.text = self.list[indexPath.row].message
-             cell.lblTime.text = self.list[indexPath.row].updatedAt.toUTCDate(format: .shipmentSendDate)?.timePassed()
+            cell.lblTime.text = self.list[indexPath.row].updatedAt.toUTCDate(format: .shipmentSendDate)?.timePassed()
             cell.imgAttachment.image = nil
             cell.imgAttachment.isHidden = self.list[indexPath.row].is_attachment == 0
             cell.lblMessage.isHidden = self.list[indexPath.row].is_attachment == 1
@@ -444,52 +444,52 @@ class ChatViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             if self.list[indexPath.row].message.isSingleEmoji{
                 cell.lblMessage.font = UIFont.boldSystemFont(ofSize: 40)
             }else{
-                 cell.lblMessage.font = UIFont.systemFont(ofSize: 13)
+                cell.lblMessage.font = UIFont.systemFont(ofSize: 13)
             }
             return cell
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
-//        CommonSocket.shared.CommanEmitSokect(command: .visitorTyping,data: [[
-//            "vid":DrdshChatSDKTest.shared.AllDetails.visitorID,
-//              "id":DrdshChatSDKTest.shared.AllDetails.companyId,
-//              "agent_id":DrdshChatSDKTest.shared.AllDetails.agentId,
-//              "ts":1,
-//              "message":GGUserSessionDetail.shared.name+DrdshChatSDKTest.shared.config.startTyping.Local(),
-//              "stop":false]]){data in}
+        //        CommonSocket.shared.CommanEmitSokect(command: .visitorTyping,data: [[
+        //            "vid":DrdshChatSDKTest.shared.AllDetails.visitorID,
+        //              "id":DrdshChatSDKTest.shared.AllDetails.companyId,
+        //              "agent_id":DrdshChatSDKTest.shared.AllDetails.agentId,
+        //              "ts":1,
+        //              "message":GGUserSessionDetail.shared.name+DrdshChatSDKTest.shared.config.startTyping.Local(),
+        //              "stop":false]]){data in}
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         CommonSocket.shared.CommanEmitSokect(command: .visitorTyping,data: [[
             "vid":DrdshChatSDK.shared.AllDetails.visitorID,
-              "id":DrdshChatSDK.shared.AllDetails.companyId,
-              "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
-              "ts":2,
-              "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
+            "id":DrdshChatSDK.shared.AllDetails.companyId,
+            "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
+            "ts":2,
+            "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
             "stop":true] as [String : Any]]){data in}
     }
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         CommonSocket.shared.CommanEmitSokect(command: .visitorTyping,data: [[
             "vid":DrdshChatSDK.shared.AllDetails.visitorID,
-              "id":DrdshChatSDK.shared.AllDetails.companyId,
-              "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
-              "ts":1,
-              "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
+            "id":DrdshChatSDK.shared.AllDetails.companyId,
+            "agent_id":DrdshChatSDK.shared.AllDetails.agentId,
+            "ts":1,
+            "message":GGUserSessionDetail.shared.name+DrdshChatSDK.shared.config.isTyping.Local(),
             "stop":false] as [String : Any]]){data in}
         return true
     }
 }
 extension ChatViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-  
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-         picker.dismiss(animated: true) {
-             if let image = (info[UIImagePickerController.InfoKey.editedImage] as? UIImage){
-                 let imageName = "\(NSDate().timeIntervalSince1970 * 1000)"
+        picker.dismiss(animated: true) {
+            if let image = (info[UIImagePickerController.InfoKey.editedImage] as? UIImage){
+                let imageName = "\(NSDate().timeIntervalSince1970 * 1000)"
                 let imagePath = self.getDocumentsDirectory().appendingPathComponent(imageName)
                 
-                 if let jpegData = image.jpegData(compressionQuality: 0.5) {
-                        try? jpegData.write(to: imagePath)
-                    }
+                if let jpegData = image.jpegData(compressionQuality: 0.5) {
+                    try? jpegData.write(to: imagePath)
+                }
                 if #available(iOS 11.0, *) {
                     let url = imagePath
                     let v = VisitorIdModel()
@@ -512,7 +512,7 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                     }
                     if let base64String = try? Data(contentsOf: url).base64EncodedString() {
                         CommonSocket.shared.CommanEmitSokect(command: .sendVisitorMessage,data: [[
-                           "dc_id":DrdshChatSDK.shared.AllDetails.companyId,
+                            "dc_id":DrdshChatSDK.shared.AllDetails.companyId,
                             "dc_mid":DrdshChatSDK.shared.AllDetails.messageID,
                             "dc_vid":DrdshChatSDK.shared.AllDetails.visitorID,
                             "dc_agent_id":DrdshChatSDK.shared.AllDetails.agentId,
@@ -523,17 +523,17 @@ extension ChatViewController: UIImagePickerControllerDelegate, UINavigationContr
                             "file_type":url.pathExtension,
                             "file_size":url.fileSize,
                             "dc_name":DrdshChatSDK.shared.AllDetails.name,
-                           "localId":url.lastPathComponent] as [String : Any]]){ data in
-                            var mm:MessageModel = MessageModel()
-                            mm <= data
-                            if let indexaPath = self.list.firstIndex(where: { (model) -> Bool in
-                                model.localId == m.localId
-                            }){
-                                self.list.remove(at: indexaPath)
-                                self.list.insert(mm, at: indexaPath)
+                            "localId":url.lastPathComponent] as [String : Any]]){ data in
+                                var mm:MessageModel = MessageModel()
+                                mm <= data
+                                if let indexaPath = self.list.firstIndex(where: { (model) -> Bool in
+                                    model.localId == m.localId
+                                }){
+                                    self.list.remove(at: indexaPath)
+                                    self.list.insert(mm, at: indexaPath)
+                                }
+                                self.table.reloadData()
                             }
-                            self.table.reloadData()
-                        }
                     }
                 } else {
                     // Fallback on earlier versions
@@ -576,9 +576,9 @@ class MyTableViewCell:UITableViewCell{
             self.lblMessage.textAlignment = .left
             self.lblTime.textAlignment = .left
         }
-       self.backView.backgroundColor = DrdshChatSDK.shared.config.myChatBubbleColor.Color()
-       self.lblMessage.textColor = DrdshChatSDK.shared.config.myChatTextColor.Color()
-       self.lblTime.textColor = DrdshChatSDK.shared.config.myChatTextColor.Color()
+        self.backView.backgroundColor = DrdshChatSDK.shared.config.myChatBubbleColor.Color()
+        self.lblMessage.textColor = DrdshChatSDK.shared.config.myChatTextColor.Color()
+        self.lblTime.textColor = DrdshChatSDK.shared.config.myChatTextColor.Color()
     }
 }
 class AgentTableViewCell:UITableViewCell{
@@ -597,10 +597,10 @@ class AgentTableViewCell:UITableViewCell{
         self.backView.clipsToBounds = true
         self.lblTime.isHidden = !DrdshChatSDK.shared.AllDetails.embeddedChat.showTimestampsChatWindow
         if #available(iOS 11.0, *) {
-           
+            
             self.backView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMaxYCorner,.layerMaxXMaxYCorner]
             if DrdshChatSDK.shared.config.local == "ar"{
-               self.backView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner,.layerMaxXMaxYCorner]
+                self.backView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner,.layerMaxXMaxYCorner]
             }
         }
         if DrdshChatSDK.shared.config.local == "ar"{
@@ -618,8 +618,8 @@ class AgentTableViewCell:UITableViewCell{
 }
 class systemTableViewCell:UITableViewCell{
     override func awakeFromNib() {
-           self.transform = CGAffineTransform(scaleX:  1, y: -1)
-       }
+        self.transform = CGAffineTransform(scaleX:  1, y: -1)
+    }
     @IBOutlet weak var lblMessage: UILabel!
 }
 public enum DateFormatterType: String {
@@ -629,7 +629,7 @@ public enum DateFormatterType: String {
 }
 //2020-03-21T10:03:54.679Z
 extension Date {
-   
+    
     // Initializes Date from string and format
     public init?(fromUTCString string: String, format: DateFormatterType) {
         self.init(fromUTCString: string, format: format.rawValue)
@@ -638,7 +638,7 @@ extension Date {
     public init?(fromUTCString string: String, format: String) {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-         formatter.locale = Locale(identifier: "ar_DZ")
+        formatter.locale = Locale(identifier: "ar_DZ")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         if let date = formatter.date(from: string) {
             self = date
@@ -668,15 +668,15 @@ extension URL {
         }
         return nil
     }
-
+    
     var fileSize: UInt64 {
         return attributes?[.size] as? UInt64 ?? UInt64(0)
     }
-
+    
     var fileSizeString: String {
         return ByteCountFormatter.string(fromByteCount: Int64(fileSize), countStyle: .file)
     }
-
+    
     var creationDate: Date? {
         return attributes?[.creationDate] as? Date
     }
@@ -757,7 +757,7 @@ extension UIImageView{
         self.image = placeHolder
         if urlString == "" || urlString == DrdshChatSDK.shared.AttachmentbaseURL{return}
         if let cachedImage = imageCache.object(forKey: NSString(string: urlString)) {
-              self.image =  cachedImage
+            self.image =  cachedImage
         }else{
             DispatchQueue.global(qos: .background).async {
                 if let url = URL(string:urlString){
@@ -765,7 +765,7 @@ extension UIImageView{
                         if let image1: UIImage = UIImage(data: data){
                             DispatchQueue.main.async {
                                 imageCache.setObject(image1, forKey:urlString as NSString)
-                                 self.image = image1
+                                self.image = image1
                             }
                         }
                     }
@@ -802,37 +802,36 @@ class GGImageViewPopup: UIImageView {
         let imageV = bgView.subviews[0] as! UIImageView
         
         UIView.animate(withDuration: intDuration, animations: {
-                imageV.frame = self.tempRect!
-                self.bgView.alpha = 0
-            }, completion: { (bol) in
-                self.bgView.removeFromSuperview()
+            imageV.frame = self.tempRect!
+            self.bgView.alpha = 0
+        }, completion: { (bol) in
+            self.bgView.removeFromSuperview()
         })
     }
     
     @objc func popUpImageToFullScreen() {
         
-        if let window = UIApplication.shared.delegate?.window {
-            let parentView = self.findParentViewController(self)!.view
-            
-            bgView = UIView(frame: UIScreen.main.bounds)
-            bgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitFullScreen)))
-            bgView.alpha = 0
-            bgView.backgroundColor = UIColor.black
-            let imageV = UIImageView(image: self.image)
-            let point = self.convert(self.bounds, to: parentView)
-            imageV.frame = point
-            tempRect = point
-            imageV.contentMode = .scaleAspectFit
-            self.bgView.addSubview(imageV)
-            window?.addSubview(bgView)
-            
-            if animated {
-                UIView.animate(withDuration: intDuration, animations: {
-                    self.bgView.alpha = 1
-                    imageV.frame = CGRect(x: 0, y: 0, width: (parentView?.frame.width)!, height: (parentView?.frame.width)!)
-                    imageV.center = (parentView?.center)!
-                })
-            }
+        let window = DrdshChatSDK.shared.getWindows()
+        let parentView = self.findParentViewController(self)!.view
+        
+        bgView = UIView(frame: UIScreen.main.bounds)
+        bgView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(exitFullScreen)))
+        bgView.alpha = 0
+        bgView.backgroundColor = UIColor.black
+        let imageV = UIImageView(image: self.image)
+        let point = self.convert(self.bounds, to: parentView)
+        imageV.frame = point
+        tempRect = point
+        imageV.contentMode = .scaleAspectFit
+        self.bgView.addSubview(imageV)
+        window.addSubview(bgView)
+        
+        if animated {
+            UIView.animate(withDuration: intDuration, animations: {
+                self.bgView.alpha = 1
+                imageV.frame = CGRect(x: 0, y: 0, width: (parentView?.frame.width)!, height: (parentView?.frame.width)!)
+                imageV.center = (parentView?.center)!
+            })
         }
     }
     
@@ -853,23 +852,23 @@ extension Character {
         guard let firstScalar = unicodeScalars.first else { return false }
         return firstScalar.properties.isEmoji && firstScalar.value > 0x238C
     }
-
+    
     /// Checks if the scalars will be merged into an emoji
     var isCombinedIntoEmoji: Bool { unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false }
-
+    
     var isEmoji: Bool { isSimpleEmoji || isCombinedIntoEmoji }
 }
 
 extension String {
     var isSingleEmoji: Bool { count == 1 && containsEmoji }
-
+    
     var containsEmoji: Bool { contains { $0.isEmoji } }
-
+    
     var containsOnlyEmoji: Bool { !isEmpty && !contains { !$0.isEmoji } }
-
+    
     var emojiString: String { emojis.map { String($0) }.reduce("", +) }
-
+    
     var emojis: [Character] { filter { $0.isEmoji } }
-
+    
     var emojiScalars: [UnicodeScalar] { filter { $0.isEmoji }.flatMap { $0.unicodeScalars } }
 }

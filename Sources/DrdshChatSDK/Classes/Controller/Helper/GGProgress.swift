@@ -19,7 +19,7 @@ class GGProgress: NSObject {
         DispatchQueue.main.async {
             self.hideProgress()
             debugPrint("GGProgress : \(file) strat")
-            self.hub = MBProgressHUD.showAdded(to: UIApplication.shared.keyWindow!, animated: true)
+            self.hub = MBProgressHUD.showAdded(to: DrdshChatSDK.shared.getWindows(), animated: true)
             self.hub.label.text = title
             self.hub.contentColor = UIColor.white
             if isFullLoader{
